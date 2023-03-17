@@ -457,7 +457,7 @@ overflow: hidden;
 
 .detalles .tex {
   position: absolute;
-  bottom: -25rem;
+  bottom: -10rem;
   margin-left: 1.6rem;
   z-index: 1000;
   padding-right: 2rem;
@@ -521,7 +521,7 @@ overflow: hidden;
   background-color: #060606;
   padding-left: 2rem;
   padding-bottom: 1rem;
-  padding-top: 40rem;
+  padding-top: 30rem;
 
 }
 .contenedorCateD .columna {
