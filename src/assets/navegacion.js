@@ -13,14 +13,11 @@ btnVerMas.addEventListener("click", () => {
 
 //Haciendo que la flecha de regresar me lleve siempre al home
 flechaRegresar.addEventListener("click", () => {
-    location.hash = window.history.back();//Esto sirve para regresar a la pagina anterior
-    if(location.hash == '#home'){
-        const childrenCategoriesPreview = Array.from(contenedorMovies.children);
-        if(!childrenCategoriesPreview.length){
-          getTrendingMoviesPreview();
-          getCategoriesPreview();
-          carImg();
-        }
+    let pag = window.history.back();//Esto sirve para regresar a la pagina anterior
+    if(pag = '#home'){
+        location.hash = '#home';
+    } else {
+        location.hash = pag;
     }
     window.scroll(0,0);
 })
