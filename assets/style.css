@@ -457,7 +457,7 @@ overflow: hidden;
 
 .detalles .tex {
   position: absolute;
-  bottom: -25rem;
+  bottom: -10rem;
   margin-left: 1.6rem;
   z-index: 1000;
   padding-right: 2rem;
@@ -521,7 +521,7 @@ overflow: hidden;
   background-color: #060606;
   padding-left: 2rem;
   padding-bottom: 1rem;
-  padding-top: 40rem;
+  padding-top: 30rem;
 
 }
 .contenedorCateD .columna {
@@ -600,7 +600,7 @@ overflow: hidden;
   padding-top: 16rem;
 }
 .peliculasM {
-  width: 90%;
+  width: 100%;
   height: auto;
   background-color: #060606;
   margin: 0 auto;
@@ -615,7 +615,7 @@ overflow: hidden;
 }
 
 .peliculas1M .carrusellM {
-  width: 15rem;
+  width: 12rem;
   height: 25rem;
   display: flex;
   flex-direction: column;
@@ -623,7 +623,7 @@ overflow: hidden;
   margin: .5rem;
 }
 .carrusellM img {
-  width: 15rem;
+  width: 12rem;
   height: 18rem;
   border-radius: 1rem;
 }
