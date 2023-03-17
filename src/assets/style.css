@@ -16,7 +16,16 @@ html {
 
 .regresar {
   position: absolute;
-  top: 15%;
+  top: 20%;
+  left: 5%;
+  width: 4rem;
+  cursor: pointer;
+  z-index: 3000;
+}
+
+.home {
+  position: fixed;
+  top: 5%;
   left: 5%;
   width: 4rem;
   cursor: pointer;
@@ -27,17 +36,18 @@ html {
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 55rem;
+  height: auto;
   background-color: rgba(6,6,6,1);
 }
 .carrusel {
   display: flex;
-  width: 300%;
-  height: 500px;
+  width: 2100%;
+  height: auto;
   margin-left: -100%;
 }
 .slider {
   width: 100%;
+  height: auto;
 }
 .slider img {
   display: block;
@@ -45,13 +55,14 @@ html {
   height: auto;
   object-fit: cover;
   
+
 }
 .btn {
   position: absolute;
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.137);
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   font-size: 30px;
   font-weight: bold;
@@ -77,7 +88,7 @@ background-image: linear-gradient(to bottom, transparent, black);
 display: inline-block;
 position: relative;
 width: 100%;
-height: 400px;
+height: 40rem;
 overflow: hidden;
 }
 
@@ -91,16 +102,16 @@ overflow: hidden;
   right: 0;
   background-image: linear-gradient(to bottom, transparent, rgba(6,6,6,1));
   z-index: 1;
-  height: 400px;
+  height: 40rem;
 }
 .tex {
-  position: sticky;
-  bottom: 5rem;
-  margin-left: 1.6rem;
+  position: absolute;
+  bottom: 15rem;
+  margin-left: 1.6rem; 
   z-index: 1000;
 }
 .tex h2 {
-  width: 90%;
+  width: 80%;
   margin: 0;
   font-size: 3.5rem;
   color: white;
@@ -108,7 +119,7 @@ overflow: hidden;
 .tex p {
   color: white;
   padding-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .tex button {
   width: 8rem;
@@ -208,44 +219,79 @@ overflow: hidden;
 .cate section article {
   cursor: pointer;
   display: flex;
+  width: 15rem;
 }
 .contenedorCate {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content:center;
+  width: 95%;
+  margin: 0 auto;
 }
-.columna {
-  flex-basis: calc(50%-1rem);
-  padding: 0 3rem 0 3rem;
 
-}
-.columna article {
-  height: 5rem;
-  align-items: center;
-}
-.cate .columna div{
+
+.cate  div{
   width: 3rem;
   height: 3rem;
-  margin-right: 1rem;
+  margin:0 1rem 2rem 0rem;
   border-radius: .3rem;
 }
-.cate .columna article:nth-child(1) div {
+.cate article:nth-child(1) div {
   background-color: rgb(240, 46, 46);
 }
-.cate .columna article:nth-child(2) div {
+.cate  article:nth-child(2) div {
   background: rgb(104, 236, 121);
 }
-.cate .columna article:nth-child(3) div {
+.cate  article:nth-child(3) div {
   background: rgb(107, 172, 209);
 }
-.cate .columna1 article:nth-child(1) div {
+.cate  article:nth-child(4) div {
   background: rgb(103, 121, 56);
 }
-.cate .columna1 article:nth-child(2) div {
+.cate  article:nth-child(5) div {
   background: rgb(245, 113, 194);
 }
-.cate .columna1 article:nth-child(3) div {
+.cate  article:nth-child(6) div {
   background: rgb(135, 165, 52);
+}
+.cate article:nth-child(7) div {
+  background-color: rgb(240, 46, 46);
+}
+.cate  article:nth-child(8) div {
+  background: rgb(104, 236, 121);
+}
+.cate  article:nth-child(9) div {
+  background: rgb(107, 172, 209);
+}
+.cate  article:nth-child(10) div {
+  background: rgb(103, 121, 56);
+}
+.cate  article:nth-child(11) div {
+  background: rgb(245, 113, 194);
+}
+.cate  article:nth-child(12) div {
+  background: rgb(135, 165, 52);
+}
+.cate article:nth-child(13) div {
+  background-color: rgb(240, 46, 46);
+}
+.cate  article:nth-child(14) div {
+  background: rgb(104, 236, 121);
+}
+.cate  article:nth-child(15) div {
+  background: rgb(107, 172, 209);
+}
+.cate  article:nth-child(16) div {
+  background: rgb(103, 121, 56);
+}
+.cate  article:nth-child(17) div {
+  background: rgb(245, 113, 194);
+}
+.cate  article:nth-child(18) div {
+  background: rgb(135, 165, 52);
+}
+.cate article:nth-child(19) div {
+  background-color: rgb(240, 46, 46);
 }
 .cate p {
   color: white;
@@ -257,17 +303,18 @@ overflow: hidden;
 
 .search-box{
   position: absolute;
-  right: 6rem;
+  right: 2rem;
   height: 50px;
   width: 6rem;
   border-radius: 50%;
   box-shadow: 5px 5px 30px rgba(0,0,0,.2);
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   z-index: 2000;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 .search-box.active{
-  width: 80%;
+  width: 70%;
+  right: 5rem;
 }
 .search-box input{
   width: 100%;
@@ -407,6 +454,14 @@ overflow: hidden;
   z-index: 1000;
   padding-right: 2rem;
 }
+
+.detalles .tex {
+  position: absolute;
+  bottom: -25rem;
+  margin-left: 1.6rem;
+  z-index: 1000;
+  padding-right: 2rem;
+}
 .tex h2 {
   width: 90%;
   margin: 0;
@@ -416,7 +471,7 @@ overflow: hidden;
 .tex div {
   display: flex;
   justify-content: space-between;
-  padding-right: 5rem;
+  width: 6rem;
 }
 .tex div .cal {
   width: 6rem;
@@ -459,6 +514,16 @@ overflow: hidden;
   padding-bottom: 1rem;
   padding-top: 30rem;
 }
+
+.detalles .contenedorCateD {
+  width: 100%;
+  height: auto;
+  background-color: #060606;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  padding-top: 40rem;
+
+}
 .contenedorCateD .columna {
   width: 80%;
   margin: 0 auto;
@@ -497,6 +562,24 @@ overflow: hidden;
 .columna article:nth-child(3) div {
   background: rgb(107, 172, 209);
 }
+.columna article:nth-child(4) div {
+  background-color: rgb(240, 46, 46);
+}
+.columna article:nth-child(5) div {
+  background: rgb(104, 236, 121);
+}
+.columna article:nth-child(6) div {
+  background: rgb(107, 172, 209);
+}
+.columna article:nth-child(7) div {
+  background-color: rgb(240, 46, 46);
+}
+.columna article:nth-child(8) div {
+  background: rgb(104, 236, 121);
+}
+.columna article:nth-child(9) div {
+  background: rgb(107, 172, 209);
+}
 
 .columna p {
   color: white;
@@ -508,6 +591,7 @@ overflow: hidden;
 
 .contenedor-masP{
   width: 100%;
+  min-height: 100vh;
   background-color: #060606;
   padding-bottom: 10rem;
   display: flex;
@@ -532,7 +616,7 @@ overflow: hidden;
 
 .peliculas1M .carrusellM {
   width: 15rem;
-  height: 20rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -586,11 +670,14 @@ overflow: hidden;
 
 @media (min-width: 480px) {
    .contenedor {
-  height: 83rem;
+  height: auto;
   }
   .carrusel {
-      height: 700px;
+      height: auto;
 
+  }
+  .slider{
+    height: auto;
   }
   .slider .im {
       height: 700px;
@@ -603,6 +690,14 @@ overflow: hidden;
       padding-top: 5rem;
     }
 
+    .detalles .tex {
+      position: sticky;
+      bottom: -25rem;
+      margin-left: 1.6rem;
+      z-index: 1000;
+      padding-right: 2rem;
+    }
+
   
 
 
@@ -610,7 +705,7 @@ overflow: hidden;
 
 @media (min-width: 768px){
   .contenedor {
-    height: 86rem;
+    height: auto;
     }
   .search-box {
       right: 8rem;
@@ -624,6 +719,13 @@ overflow: hidden;
   .tex {
       margin-left: 6rem;
     }
+    .detalles .tex {
+      position: sticky;
+      bottom: -25rem;
+      margin-left: 1.6rem;
+      z-index: 1000;
+      padding-right: 2rem;
+    }
     .tex h2 {
       font-size: 5rem;
     }
@@ -633,7 +735,7 @@ overflow: hidden;
       font-size: 2.5rem;
     }
     .tex button {
-      width: 8rem;
+      width: 12rem;
       height: 4rem;
       border-radius: 1rem;
       border: none;
@@ -643,7 +745,7 @@ overflow: hidden;
       color: white;
     }
     .peliculas h2{
-      padding-left: 4rem;
+      padding-left: 0rem;
 
     }
 }
