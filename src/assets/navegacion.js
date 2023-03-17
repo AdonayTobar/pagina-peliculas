@@ -14,6 +14,7 @@ btnVerMas.addEventListener("click", () => {
 //Haciendo que la flecha de regresar me lleve siempre al home
 flechaRegresar.addEventListener("click", () => {
     location.hash = window.history.back();//Esto sirve para regresar a la pagina anterior
+    window.scroll(0,0);
 })
 
 function navegador(){

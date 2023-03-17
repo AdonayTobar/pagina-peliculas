@@ -600,7 +600,7 @@ overflow: hidden;
   padding-top: 16rem;
 }
 .peliculasM {
-  width: 90%;
+  width: 100%;
   height: auto;
   background-color: #060606;
   margin: 0 auto;
@@ -615,7 +615,7 @@ overflow: hidden;
 }
 
 .peliculas1M .carrusellM {
-  width: 15rem;
+  width: 12rem;
   height: 25rem;
   display: flex;
   flex-direction: column;
@@ -623,7 +623,7 @@ overflow: hidden;
   margin: .5rem;
 }
 .carrusellM img {
-  width: 15rem;
+  width: 12rem;
   height: 18rem;
   border-radius: 1rem;
 }
