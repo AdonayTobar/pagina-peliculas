@@ -35,6 +35,10 @@ const home = document.querySelector('.home');
 //texto del resultado
 let resultado = document.querySelector('.resultado');
 
+//Contenedor de buscador de peliculas y de peliculas top
+
+let peliculasBusqueda = document.querySelector(".masPeliculas .busquedapelis");
+
 
 
 

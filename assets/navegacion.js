@@ -1,9 +1,19 @@
 window.addEventListener('DOMContentLoaded', navegador,false);
 window.addEventListener('hashchange', navegador,false);
+//el escroll infinito
+let page = 1;
+let pageS = 1;
+let pageTop = 1;
+
+let scrollInfinito;
+window.addEventListener("scroll", scrollInfinito, false);
+
 
 //Haciendo que el boton de home, me lleve a home
 home.addEventListener('click', () => {
     location.hash = '#home';
+    peliculasBusqueda.innerHTML = "";
+
 })
 
 //Haciendo que el boton de ver mas me lleve a trends
@@ -21,23 +31,43 @@ flechaRegresar.addEventListener("click", () => {
     }
     window.scroll(0,0);
 })
-
+let section = '';
 function navegador(){
     console.log({location});
 
+    //Esto es para que cada vez que entremos en esta funcion, se cambie el valor de scroll
+    if(scrollInfinito) {
+        window.removeEventListener("scroll", scrollInfinito, false);
+        scrollInfinito = undefined;
+    }
+
+    
     if(location.hash.startsWith('#trends')) {
+        peliculasBusqueda.innerHTML = '';
         trendsPage();
+        section = 'trends';
+        
     } else if(location.hash.startsWith('#search=')) {
+        peliculasBusqueda.innerHTML = '';
+
         searchPage();
+        section = 'search';
     } else if(location.hash.startsWith('#movie=')) {
         moviePage();
     } else if(location.hash.startsWith('#category=')) {
         categoriesPage();
     }  else if(location.hash.startsWith('#home')) {
         homePage();
+        section = "";
     } else {
         homePage();
     }
+
+    window.scroll(0,0);
+    if(scrollInfinito){
+        window.addEventListener("scroll", scrollInfinito, false);
+    }
+
 }
 
 function homePage(){
@@ -55,14 +85,14 @@ function homePage(){
     console.log('Home');
     busqueda();
 
+    section = "";
     const childrenCategoriesPreview = Array.from(contenedorMovies.children);
   if(!childrenCategoriesPreview.length){
     getTrendingMoviesPreview();
     getCategoriesPreview();
-    carImg();
-  }
-
+    //carImg();
     
+  }
     
 }
 function searchPage(){
@@ -120,6 +150,9 @@ function categoriesPage(){
 
     nombreCate.innerHTML = nombreBien;
     getMoviesByCategory(categoryID);
+
+    //Para ponerle el parametro utilice clouser
+    scrollInfinito = getMoviesByCategoryScroll(categoryID);
 }
 function trendsPage(){
     console.log('Trends!');
@@ -138,6 +171,7 @@ function trendsPage(){
     window.scroll(0,0);//Esto se utiliza para que la pagina que se muestre siempre se muestre desde arriba
     getTrendingMovies();
 }
+
 
 
 //location.hash = '#category='

@@ -15,7 +15,7 @@ html {
 }
 
 .regresar {
-  position: absolute;
+  position: fixed;
   top: 20%;
   left: 5%;
   width: 4rem;
@@ -41,7 +41,7 @@ html {
 }
 .carrusel {
   display: flex;
-  width: 2100%;
+  width: 2000%;
   height: auto;
   margin-left: -100%;
 }
@@ -53,6 +53,7 @@ html {
   display: block;
   width: 100%;
   height: auto;
+  min-height: 2rem;
   object-fit: cover;
   
 
@@ -663,6 +664,20 @@ overflow: hidden;
   padding-left: .5rem;
 } 
 
+
+/* Elementos que sw muestran si la pagina no ha cargado */
+
+.cargar {
+  background-color: #0c0c0c;
+  width: 100%;
+  height: 75vh;
+}
+
+.cargar-t {
+  background-color: #0c0c0c;
+  width: 12rem;
+  height: 20rem;
+}
 
 
 

@@ -112,9 +112,33 @@ const api = axios.create({
   }
 });
 
+
+//funciones para que las imagenes cargen solo cuando estan viendo
+
+const observerTargeta = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      console.log('Elemeto visible');
+      const url = entry.target.getAttribute('data-img');
+      entry.target.src = url;
+
+    } /* else {
+      console.log('Elemento NO visible');
+      const url = entry.target.getAttribute('data-img');
+      entry.target.src = "";
+    } */
+  });
+});
+
+
+
+
+
 async function getTrendingMoviesPreview(){
 
+contenedorCarrusel.innerHTML = "";
 
+  
   const {data} = await api('trending/movie/day');
 
 
@@ -132,13 +156,19 @@ async function getTrendingMoviesPreview(){
 const sliderDiv = document.createElement('div');
 sliderDiv.classList.add('slider');
 
+
+
 // Crear el elemento 'div' con la clase 'im' y su hijo 'img'
 const imDiv = document.createElement('div');
 imDiv.classList.add('im');
 const imgC = document.createElement('img');
-imgC.src = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+imgC.setAttribute("data-img", 'https://image.tmdb.org/t/p/w500' + movie.poster_path );
 imgC.alt = '';
 imDiv.appendChild(imgC);
+
+observerTargeta.observe(imgC);
+
+
 
 // Crear el elemento 'div' con la clase 'tex' y sus hijos 'h2', 'p' y 'button'
 const texDiv = document.createElement('div');
@@ -164,12 +194,14 @@ sliderDiv.appendChild(texDiv);
 // Agregar el elemento 'div.slider' al documento HTML
 contenedorCarrusel.appendChild(sliderDiv);
 
-
+carImg();
 
 
 
     // Crear el elemento article
 const article = document.createElement('article');
+
+
 article.classList.add('carrusell');
 article.addEventListener("click", () => {
   location.hash = '#movie=' + movie.id;
@@ -177,9 +209,12 @@ article.addEventListener("click", () => {
 
 // Crear el elemento img y añadirlo al article
 const imgM = document.createElement('img');
-imgM.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+imgM.setAttribute('data-img', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
 imgM.alt = movie.title;
 article.appendChild(imgM);
+
+observerTargeta.observe(imgM);
+
 
 // Crear el elemento div y añadirlo al article
 const textDiv = document.createElement('div');
@@ -194,6 +229,7 @@ article.appendChild(textDiv);
 contenedorMovies.appendChild(article);
     
   });
+  
 }
 
 async function getCategoriesPreview(){
@@ -235,6 +271,7 @@ contenedorCategories.appendChild(articleElement);
 }
 
 
+
 async function getMoviesByCategory(id){
   window.scroll(0,0);
   const {data} = await api('discover/movie', {
@@ -269,8 +306,10 @@ async function getMoviesByCategory(id){
 
   // Crear el elemento img y establecer su atributo src
   const imgCateg = document.createElement("img");
-  imgCateg.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+  imgCateg.setAttribute("data-img", 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
   imgDiv.appendChild(imgCateg);
+
+  observerTargeta.observe(imgCateg);
 
   // Crear el elemento div para el texto
   const textDiv = document.createElement("div");
@@ -290,6 +329,77 @@ async function getMoviesByCategory(id){
   });
 }
 
+
+function getMoviesByCategoryScroll(id){
+
+  return async function () {
+  page++;
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+ const scrollfinal = (scrollTop + clientHeight) >= (scrollHeight - 35);
+
+ if(scrollfinal){
+  const {data} = await api('discover/movie', {
+    params: {
+      with_genres: id,
+      page,
+    }
+  });
+
+
+  const movies = data.results;
+  console.log({data, movies});
+
+  const peliculasCate = document.querySelector(".catePeliculas .peliculas1M");
+
+  //peliculasCate.innerHTML = '';
+  movies.forEach(movie => {
+
+    //nombreCate.textContent = 
+    
+    // Crear el elemento article
+  const article = document.createElement("article");
+  article.classList.add("carrusellM");
+
+  // Crear el elemento div para la imagen
+  const imgDiv = document.createElement("div");
+  imgDiv.classList.add("img");
+  article.appendChild(imgDiv);
+
+  article.addEventListener("click", () => {
+    location.hash = '#movie=' + movie.id;
+  });
+
+  // Crear el elemento img y establecer su atributo src
+  const imgCateg = document.createElement("img");
+  imgCateg.setAttribute("data-img", 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+  imgDiv.appendChild(imgCateg);
+
+  observerTargeta.observe(imgCateg);
+
+  // Crear el elemento div para el texto
+  const textDiv = document.createElement("div");
+  textDiv.classList.add("text");
+
+
+  // Crear el elemento h2 y establecer su contenido de texto
+  const h2 = document.createElement("h2");
+  h2.textContent = movie.title;
+  textDiv.appendChild(h2);
+
+  article.appendChild(textDiv);
+  // Agregar el artículo al documento
+  peliculasCate.appendChild(article);
+
+    
+  });
+  }
+  
+
+  
+}
+} 
+
 async function getMoviesBySearch(query){
   window.scroll(0,0);
   const {data} = await api('search/movie', {
@@ -300,13 +410,11 @@ async function getMoviesBySearch(query){
 
 
   const movies = data.results;
-  console.log('Estas son las busquedas');
+  console.log(section);
   console.log({data, movies});
 
   
-
-  let peliculasBusqueda = document.querySelector(".masPeliculas .busquedapelis");
-  
+  const botonVer = document.querySelector(".btnVerM");
   peliculasBusqueda.innerHTML = '';
   
   if(!movies.length){
@@ -339,8 +447,11 @@ async function getMoviesBySearch(query){
 
   // Crear el elemento img y establecer su atributo src
   const imgB = document.createElement("img");
-  imgB.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+  imgB.setAttribute("data-img", 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
   imgDiv1.appendChild(imgB);
+
+  observerTargeta.observe(imgB);
+
 
   // Crear el elemento div para el texto
   const textDiv1 = document.createElement("div");
@@ -358,8 +469,15 @@ async function getMoviesBySearch(query){
 
     
   });
+
+ 
+    botonVer.addEventListener('click', vermasPelisS(query));
+  
+  
   busqueda();
 }
+
+
 
 async function getTrendingMovies(){
   window.scroll(0,0);
@@ -367,12 +485,13 @@ async function getTrendingMovies(){
 
 
   const movies = data.results;
-  console.log('Estas son las nuevas peliculas');
+  console.log(section);
   console.log({data, movies});
 
   
 
-  let peliculasBusqueda = document.querySelector(".masPeliculas .busquedapelis");
+
+  const botonVer = document.querySelector(".btnVerM");
   
   peliculasBusqueda.innerHTML = '';
   resultado.textContent = 'Tendencias';
@@ -398,8 +517,10 @@ async function getTrendingMovies(){
 
   // Crear el elemento img y establecer su atributo src
   const imgB = document.createElement("img");
-  imgB.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+  imgB.setAttribute('data-img','https://image.tmdb.org/t/p/w300' + movie.poster_path);
   imgDiv1.appendChild(imgB);
+
+  observerTargeta.observe(imgB);
 
   // Crear el elemento div para el texto
   const textDiv1 = document.createElement("div");
@@ -417,8 +538,135 @@ async function getTrendingMovies(){
 
     
   });
+
+  
+    botonVer.addEventListener('click', vermasPelisTop);
+  
+  
   busqueda();
 }
+
+
+
+
+//Con la siguiente funcion, hacemos que el boton de cargar mas, me de avance a la siguiente pagina y se muestre todo
+
+async function vermasPelisTop(){
+
+if(section === "search"){
+  return;
+} 
+  pageTop++;
+  const {data} = await api('trending/movie/day', {
+    params: {
+      page: pageTop,
+    },
+  });
+  const movies = data.results;
+  console.log('Le dimos click a la pagina ' + pageTop);
+  
+  movies.forEach(movie => {
+
+    
+    // Crear el elemento article
+  const article1 = document.createElement("article");
+  article1.classList.add("carrusellM");
+
+  article1.addEventListener("click", () => {
+    location.hash = '#movie=' + movie.id;
+  });
+
+  // Crear el elemento div para la imagen
+  const imgDiv1 = document.createElement("div");
+  imgDiv1.classList.add("img");
+  article1.appendChild(imgDiv1);
+
+  // Crear el elemento img y establecer su atributo src
+  const imgB = document.createElement("img");
+  imgB.setAttribute('data-img','https://image.tmdb.org/t/p/w300' + movie.poster_path);
+  imgDiv1.appendChild(imgB);
+
+  observerTargeta.observe(imgB);
+
+  // Crear el elemento div para el texto
+  const textDiv1 = document.createElement("div");
+  textDiv1.classList.add("text");
+
+
+  // Crear el elemento h2 y establecer su contenido de texto
+  const h21 = document.createElement("h2");
+  h21.textContent = movie.title;
+  textDiv1.appendChild(h21);
+
+  article1.appendChild(textDiv1);
+  // Agregar el artículo al documento
+  peliculasBusqueda.appendChild(article1);
+
+  });
+} 
+
+//funcion para ver mas peliculas en las busquedas
+
+function vermasPelisS(query){
+
+  return async function (){
+    if(section === "trends"){
+      return;
+    } 
+    
+    pageS++;
+  const {data} = await api('search/movie', {
+    params: {
+      query,
+      page: pageS,
+    }
+  });
+  const movies = data.results;
+  console.log('Le dimos click' + pageS);
+  movies.forEach(movie => {
+
+    
+    // Crear el elemento article
+  const article1 = document.createElement("article");
+  article1.classList.add("carrusellM");
+
+  article1.addEventListener("click", () => {
+    location.hash = '#movie=' + movie.id;
+  });
+
+  // Crear el elemento div para la imagen
+  const imgDiv1 = document.createElement("div");
+  imgDiv1.classList.add("img");
+  article1.appendChild(imgDiv1);
+
+  // Crear el elemento img y establecer su atributo src
+  const imgB = document.createElement("img");
+  imgB.setAttribute('data-img','https://image.tmdb.org/t/p/w300' + movie.poster_path);
+  imgDiv1.appendChild(imgB);
+
+  observerTargeta.observe(imgB);
+
+  // Crear el elemento div para el texto
+  const textDiv1 = document.createElement("div");
+  textDiv1.classList.add("text");
+
+
+  // Crear el elemento h2 y establecer su contenido de texto
+  const h21 = document.createElement("h2");
+  h21.textContent = movie.title;
+  textDiv1.appendChild(h21);
+
+  article1.appendChild(textDiv1);
+  // Agregar el artículo al documento
+  peliculasBusqueda.appendChild(article1);
+
+  });
+  }
+  
+}
+
+
+
 
 
 async function getMovieById(id){
@@ -539,9 +787,12 @@ article.addEventListener("click", () => {
 
 // Crear el elemento img y añadirlo al article
 const imgM = document.createElement('img');
-imgM.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+imgM.setAttribute('data-img','https://image.tmdb.org/t/p/w300' + movie.poster_path);
 imgM.alt = movie.title;
 article.appendChild(imgM);
+
+observerTargeta.observe(imgM);
+
 
 // Crear el elemento div y añadirlo al article
 const textDiv = document.createElement('div');
@@ -558,6 +809,8 @@ moviesimilar.appendChild(article);
   });
 
 }
+
+
 
 
 
