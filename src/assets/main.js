@@ -811,7 +811,7 @@ moviesimilar.appendChild(article);
 }
 
 
-//Creando el objeto server para poder cargar a imagenes si solo se ven
+
 
 
 
